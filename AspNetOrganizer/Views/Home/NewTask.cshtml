@@ -1,0 +1,35 @@
+﻿@model AspNetOrganizer.Models.ToDoTask
+@using System.Web.Optimization
+@using AspNetOrganizer.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>NewTask</title>
+</head>
+<body>
+    <div>
+    
+        @using (Html.BeginForm("SaveTaskBtnClick", "Home", FormMethod.Post))
+        {
+            <h3>Task name:</h3>
+            @Html.TextBoxFor(m=>m.TaskName)
+            <h3>Task priority:</h3>
+            @Html.DropDownListFor(m=>m.Priority, new SelectList(Enum.GetValues(typeof(TaskPriority))),
+                    "Select priority")
+            <h3>Due date and time:</h3>
+            @Html.TextBoxFor(m=>m.DueDateTime, new { type = "date" })
+            <h3>Comment (optional):</h3>
+            @Html.TextBoxFor(m=>m.Comment)
+            <br>
+            <br>
+            <input type="submit" value="Save">
+        }
+    </div>
+</body>
+</html>

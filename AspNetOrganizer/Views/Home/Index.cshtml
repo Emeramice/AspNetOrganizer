@@ -1,0 +1,42 @@
+﻿@model List<AspNetOrganizer.Models.ToDoTask>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <h1>To-Do List</h1>
+        @using (Html.BeginForm("CompleteChanged", "Home", FormMethod.Post))
+        {
+        <table>
+            @for (int i=0; i<Model.Count;i++)
+            {
+                <tr>
+                    <td>@Html.TextBoxFor(m=>Model[i].TaskName, new { @readonly = "readonly" })</td>
+                    <td>@Html.TextBoxFor(m=>Model[i].DueDateTime, new { @readonly="readonly"})</td>
+                    <td>@Html.CheckBoxFor(m => Model[i].IsCompleted) </td>
+                    @if ((Model[i].DueDateTime.Ticks < DateTime.Now.Ticks)&(Model[i].IsCompleted==false))
+                    {
+                        <td>Overdue!</td>
+                    }
+                </tr>
+            }
+        </table>
+        <br>
+        <input type="submit" value="Save changes"/>
+        }
+        @using (Html.BeginForm("NewTaskBtnClick", "Home", FormMethod.Post))
+        {
+            <br>
+            <input type="submit" value="New task"/>
+        }
+    </div>
+</body>
+</html>
